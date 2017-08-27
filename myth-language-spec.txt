@@ -1,0 +1,84 @@
+# Literals
+3        # -> 3
+3.0      # -> 3.0
+True     # -> True
+"hello"  # -> "hello"
+[]       # -> empty list
+{}       # -> empty set
+
+# Math
+1 + 1  # -> 2   (addition)
+1 - 1  # -> 0   (subtraction)
+2 * 2  # -> 4   (multiplication)
+9 / 3  # -> 3.0 (real division)
+3 ^ 2  # -> 9   (exponentiation)
+10 % 4 # -> 2   (modulo)
+3 // 2 # -> 1   (integer division)
+
+# Boolean operators
+not True        # -> False
+True and False  # -> False
+True or False   # -> True
+
+# Comparison
+1 > 1    # -> False
+1 < 1    # -> False
+1 >= 1   # -> True
+1 <= 1   # -> True
+1 = 1    # -> True
+1 != 1   # -> False
+
+# Other operators
+f . g   # x -> f(g(x)) (composition)
+a is b  # True if a and b point to the same instance (same memory address)
+
+# Assignment
+a: [1, 2, 3]  # a refers to [1, 2, 3]
+b: {1, 2, 3}  # b refers to {1, 2, 3}
+c: (1, 2, 3)  # c refers to (1, 2, 3)
+
+# Conditional expressions
+| condition1 -> action1
+| condition2 ->
+    | subcondition1 -> subaction1
+    | subcondition2 -> subaction2
+
+# Is equivalent to =>
+# if condition1:
+#   action1
+# elif condition2:
+#   if subcondition1:
+#       subaction1
+#   elif subcondition2:
+#       subaction2
+
+# Function syntax
+add: x, y -> x + y
+increment: partial(add, 1)
+
+# Default params
+exp: base:10, n -> base ^ n
+
+# Anonymous functions
+map(x -> x + 1, [1, 2, 3]) # -> [2, 3, 4]
+
+# Function types (variable types are determined at compile time)
+exp :: Real -> Real
+exp: power -> e ^ power
+exp: partial(^, e)
+
+fib: n ->
+    | n in {0, 1} -> n
+    | n > 1 -> fib(n - 1) + fib(n - 2)
+
+def partial(f, x):
+    return lambda y: f(x, y)
+
+# Lexer Regex
+
+name : [a-zA-z_]+
+assign : name: expr
+arglist : expr
+        | expr ',' arglist
+call : name(arglist)
+expr : assign | call
