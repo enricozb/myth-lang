@@ -7,6 +7,7 @@ from pprint import pprint
 precedence = (
     ('left', 'RPAREN_MAPSTO', 'MAPSTO'),
     ('left', 'OPERATOR'),
+    ('left', 'BAR'),
 )
 
 class DictStack:
@@ -47,6 +48,8 @@ names['//'] = operator.floordiv
 names['^'] = operator.pow
 names['='] = operator.eq
 
+names['in'] = lambda a, b: a in b
+
 def lambda_literal(capturelist, expression):
     def func(*args):
         expected, received = len(capturelist), len(args)
@@ -75,6 +78,10 @@ def eval_bytecode(code):
         return args[0]
     elif instr == 'name':
         return names[args[0]]
+    elif instr == 'conditional':
+        for condition, expression in zip(args[0], args[1]):
+            if eval_bytecode(condition):
+                return eval_bytecode(expression)
 
 def p_statment(t):
     """
@@ -140,6 +147,7 @@ def p_expression_name(t):
 def p_expression(t):
     """
     expression : operator_invocation
+               | conditional
                | call
                | literal
                | LPAREN expression RPAREN
@@ -148,6 +156,16 @@ def p_expression(t):
         t[0] = t[1]
     else:
         t[0] = t[2]
+
+def p_conditional(t):
+    """
+    conditional : BAR LPAREN expression RPAREN_MAPSTO expression
+                | conditional BAR LPAREN expression RPAREN_MAPSTO expression
+    """
+    if len(t) == 6:
+        t[0] = ('conditional', [t[3]], [t[5]])
+    else:
+        t[0] = ('conditional', t[1][1] + [t[4]], t[1][2] + [t[6]])
 
 def p_literal(t):
     """
@@ -181,13 +199,9 @@ def p_list(t):
 
 def p_lambda(t):
     """
-    lambda : name MAPSTO expression
-           | LPAREN capture_list RPAREN_MAPSTO expression
+    lambda : LPAREN capture_list RPAREN_MAPSTO expression
     """
-    if len(t) == 4:
-        t[0] = lambda_literal([t[1]], t[3])
-    else:
-        t[0] = lambda_literal(t[2], t[4])
+    t[0] = lambda_literal(t[2], t[4])
 
 def p_capture_list(t):
     """

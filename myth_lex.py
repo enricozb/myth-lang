@@ -2,12 +2,13 @@ from ast import literal_eval
 
 tokens = (
     'NAME', 'NUMBER', 'COLON', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
-    'LBRACE', 'RBRACE', 'COMMA', 'MAPSTO', 'RPAREN_MAPSTO', 'OPERATOR', 'STRING'
+    'LBRACE', 'RBRACE', 'COMMA', 'MAPSTO', 'RPAREN_MAPSTO', 'OPERATOR',
+    'STRING', 'BAR',
 )
 
 t_ignore = ' '
 
-t_NAME = r'[a-zA-Z_]+'
+t_NAME = r'(?!in)([a-zA-Z_]+)'
 t_COLON = r':'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -18,7 +19,8 @@ t_RBRACE = r'}'
 t_COMMA = r','
 t_MAPSTO = r'->'
 t_RPAREN_MAPSTO = r'\)\s+->'
-t_OPERATOR = r'[\+\-\*\/\^=]+'
+t_OPERATOR = r'[\+\-\*\/\^=]+|in'
+t_BAR = r'\|'
 
 def t_NUMBER(t):
     r'\d+'

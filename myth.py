@@ -24,6 +24,8 @@ def parse_args():
 def main():
     args = parse_args()
     builtins.verbose = args.verbose
+    if builtins.verbose:
+        print('Verbose mode enabled')
 
     if args.filename:
         with open(args.filename, 'r') as file:
@@ -47,6 +49,8 @@ def main():
         except EOFError:
             break
         except Exception as e:
+            if builtins.verbose:
+                raise e
             print(e)
             print()
 
