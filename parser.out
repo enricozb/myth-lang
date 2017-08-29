@@ -7,57 +7,60 @@ Rule 1     statement -> assign
 Rule 2     statement -> expression
 Rule 3     arglist -> expression
 Rule 4     arglist -> arglist COMMA expression
-Rule 5     call -> NAME LPAREN arglist RPAREN
-Rule 6     call -> LPAREN expression RPAREN LPAREN arglist RPAREN
-Rule 7     assign -> NAME COLON expression
-Rule 8     expression -> NAME
-Rule 9     expression -> operator_invocation
-Rule 10    expression -> call
-Rule 11    expression -> literal
-Rule 12    literal -> NUMBER
-Rule 13    literal -> list
-Rule 14    literal -> set
-Rule 15    literal -> lambda
-Rule 16    set -> LBRACE arglist RBRACE
-Rule 17    set -> LBRACE RBRACKET
-Rule 18    list -> LBRACKET arglist RBRACKET
-Rule 19    list -> LBRACKET RBRACKET
-Rule 20    lambda -> NAME MAPSTO expression
-Rule 21    lambda -> LPAREN capture_list RPAREN_MAPSTO expression
-Rule 22    capture_list -> NAME
-Rule 23    capture_list -> capture_list COMMA NAME
-Rule 24    operator -> NAME
-Rule 25    operator_invocation -> expression operator expression
+Rule 5     name -> OPERATOR
+Rule 6     name -> NAME
+Rule 7     call -> name LPAREN arglist RPAREN
+Rule 8     call -> LPAREN expression RPAREN LPAREN arglist RPAREN
+Rule 9     assign -> name COLON expression
+Rule 10    expression -> name
+Rule 11    expression -> operator_invocation
+Rule 12    expression -> call
+Rule 13    expression -> literal
+Rule 14    expression -> LPAREN expression RPAREN
+Rule 15    literal -> NUMBER
+Rule 16    literal -> list
+Rule 17    literal -> set
+Rule 18    literal -> lambda
+Rule 19    set -> LBRACE arglist RBRACE
+Rule 20    set -> LBRACE RBRACE
+Rule 21    list -> LBRACKET arglist RBRACKET
+Rule 22    list -> LBRACKET RBRACKET
+Rule 23    lambda -> name MAPSTO expression
+Rule 24    lambda -> LPAREN capture_list RPAREN_MAPSTO expression
+Rule 25    capture_list -> name
+Rule 26    capture_list -> capture_list COMMA name
+Rule 27    operator_invocation -> expression OPERATOR expression
 
 Terminals, with rules where they appear
 
-COLON                : 7
-COMMA                : 4 23
-LBRACE               : 16 17
-LBRACKET             : 18 19
-LPAREN               : 5 6 6 21
-MAPSTO               : 20
-NAME                 : 5 7 8 20 22 23 24
-NUMBER               : 12
-RBRACE               : 16
-RBRACKET             : 17 18 19
-RPAREN               : 5 6 6
-RPAREN_MAPSTO        : 21
+COLON                : 9
+COMMA                : 4 26
+LBRACE               : 19 20
+LBRACKET             : 21 22
+LPAREN               : 7 8 8 14 24
+MAPSTO               : 23
+NAME                 : 6
+NUMBER               : 15
+OPERATOR             : 5 27
+RBRACE               : 19 20
+RBRACKET             : 21 22
+RPAREN               : 7 8 8 14
+RPAREN_MAPSTO        : 24
 error                : 
 
 Nonterminals, with rules where they appear
 
-arglist              : 4 5 6 16 18
+arglist              : 4 7 8 19 21
 assign               : 1
-call                 : 10
-capture_list         : 21 23
-expression           : 2 3 4 6 7 20 21 25 25
-lambda               : 15
-list                 : 13
-literal              : 11
-operator             : 25
-operator_invocation  : 9
-set                  : 14
+call                 : 12
+capture_list         : 24 26
+expression           : 2 3 4 8 9 14 23 24 27 27
+lambda               : 18
+list                 : 16
+literal              : 13
+name                 : 7 9 10 23 25 26
+operator_invocation  : 11
+set                  : 17
 statement            : 0
 
 Parsing method: LALR
@@ -67,40 +70,45 @@ state 0
     (0) S' -> . statement
     (1) statement -> . assign
     (2) statement -> . expression
-    (7) assign -> . NAME COLON expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (9) assign -> . name COLON expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 4
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
     statement                      shift and go to state 1
     assign                         shift and go to state 2
     expression                     shift and go to state 3
+    name                           shift and go to state 4
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 1
 
@@ -118,769 +126,828 @@ state 2
 state 3
 
     (2) statement -> expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (27) operator_invocation -> expression . OPERATOR expression
 
     $end            reduce using rule 2 (statement -> expression .)
-    NAME            shift and go to state 16
+    OPERATOR        shift and go to state 17
 
-    operator                       shift and go to state 15
 
 state 4
 
-    (7) assign -> NAME . COLON expression
-    (8) expression -> NAME .
-    (5) call -> NAME . LPAREN arglist RPAREN
-    (20) lambda -> NAME . MAPSTO expression
+    (9) assign -> name . COLON expression
+    (10) expression -> name .
+    (7) call -> name . LPAREN arglist RPAREN
+    (23) lambda -> name . MAPSTO expression
 
-    COLON           shift and go to state 17
-    NAME            reduce using rule 8 (expression -> NAME .)
-    $end            reduce using rule 8 (expression -> NAME .)
-    LPAREN          shift and go to state 18
-    MAPSTO          shift and go to state 19
+    COLON           shift and go to state 18
+    OPERATOR        reduce using rule 10 (expression -> name .)
+    $end            reduce using rule 10 (expression -> name .)
+    LPAREN          shift and go to state 19
+    MAPSTO          shift and go to state 20
 
 
 state 5
 
-    (9) expression -> operator_invocation .
+    (11) expression -> operator_invocation .
 
-    NAME            reduce using rule 9 (expression -> operator_invocation .)
-    $end            reduce using rule 9 (expression -> operator_invocation .)
-    RPAREN          reduce using rule 9 (expression -> operator_invocation .)
-    RBRACKET        reduce using rule 9 (expression -> operator_invocation .)
-    COMMA           reduce using rule 9 (expression -> operator_invocation .)
-    RBRACE          reduce using rule 9 (expression -> operator_invocation .)
+    OPERATOR        reduce using rule 11 (expression -> operator_invocation .)
+    $end            reduce using rule 11 (expression -> operator_invocation .)
+    RPAREN          reduce using rule 11 (expression -> operator_invocation .)
+    RBRACKET        reduce using rule 11 (expression -> operator_invocation .)
+    COMMA           reduce using rule 11 (expression -> operator_invocation .)
+    RBRACE          reduce using rule 11 (expression -> operator_invocation .)
 
 
 state 6
 
-    (10) expression -> call .
+    (12) expression -> call .
 
-    NAME            reduce using rule 10 (expression -> call .)
-    $end            reduce using rule 10 (expression -> call .)
-    RPAREN          reduce using rule 10 (expression -> call .)
-    RBRACKET        reduce using rule 10 (expression -> call .)
-    COMMA           reduce using rule 10 (expression -> call .)
-    RBRACE          reduce using rule 10 (expression -> call .)
+    OPERATOR        reduce using rule 12 (expression -> call .)
+    $end            reduce using rule 12 (expression -> call .)
+    RPAREN          reduce using rule 12 (expression -> call .)
+    RBRACKET        reduce using rule 12 (expression -> call .)
+    COMMA           reduce using rule 12 (expression -> call .)
+    RBRACE          reduce using rule 12 (expression -> call .)
 
 
 state 7
 
-    (11) expression -> literal .
+    (13) expression -> literal .
 
-    NAME            reduce using rule 11 (expression -> literal .)
-    $end            reduce using rule 11 (expression -> literal .)
-    RPAREN          reduce using rule 11 (expression -> literal .)
-    RBRACKET        reduce using rule 11 (expression -> literal .)
-    COMMA           reduce using rule 11 (expression -> literal .)
-    RBRACE          reduce using rule 11 (expression -> literal .)
+    OPERATOR        reduce using rule 13 (expression -> literal .)
+    $end            reduce using rule 13 (expression -> literal .)
+    RPAREN          reduce using rule 13 (expression -> literal .)
+    RBRACKET        reduce using rule 13 (expression -> literal .)
+    COMMA           reduce using rule 13 (expression -> literal .)
+    RBRACE          reduce using rule 13 (expression -> literal .)
 
 
 state 8
 
-    (6) call -> LPAREN . expression RPAREN LPAREN arglist RPAREN
-    (21) lambda -> LPAREN . capture_list RPAREN_MAPSTO expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (22) capture_list -> . NAME
-    (23) capture_list -> . capture_list COMMA NAME
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (14) expression -> LPAREN . expression RPAREN
+    (8) call -> LPAREN . expression RPAREN LPAREN arglist RPAREN
+    (24) lambda -> LPAREN . capture_list RPAREN_MAPSTO expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (25) capture_list -> . name
+    (26) capture_list -> . capture_list COMMA name
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 22
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    expression                     shift and go to state 20
-    capture_list                   shift and go to state 21
+    expression                     shift and go to state 21
+    capture_list                   shift and go to state 22
+    name                           shift and go to state 23
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 9
 
-    (12) literal -> NUMBER .
+    (5) name -> OPERATOR .
 
-    NAME            reduce using rule 12 (literal -> NUMBER .)
-    $end            reduce using rule 12 (literal -> NUMBER .)
-    RPAREN          reduce using rule 12 (literal -> NUMBER .)
-    RBRACKET        reduce using rule 12 (literal -> NUMBER .)
-    COMMA           reduce using rule 12 (literal -> NUMBER .)
-    RBRACE          reduce using rule 12 (literal -> NUMBER .)
+    COLON           reduce using rule 5 (name -> OPERATOR .)
+    LPAREN          reduce using rule 5 (name -> OPERATOR .)
+    MAPSTO          reduce using rule 5 (name -> OPERATOR .)
+    OPERATOR        reduce using rule 5 (name -> OPERATOR .)
+    $end            reduce using rule 5 (name -> OPERATOR .)
+    RPAREN          reduce using rule 5 (name -> OPERATOR .)
+    RPAREN_MAPSTO   reduce using rule 5 (name -> OPERATOR .)
+    COMMA           reduce using rule 5 (name -> OPERATOR .)
+    RBRACKET        reduce using rule 5 (name -> OPERATOR .)
+    RBRACE          reduce using rule 5 (name -> OPERATOR .)
 
 
 state 10
 
-    (13) literal -> list .
+    (6) name -> NAME .
 
-    NAME            reduce using rule 13 (literal -> list .)
-    $end            reduce using rule 13 (literal -> list .)
-    RPAREN          reduce using rule 13 (literal -> list .)
-    RBRACKET        reduce using rule 13 (literal -> list .)
-    COMMA           reduce using rule 13 (literal -> list .)
-    RBRACE          reduce using rule 13 (literal -> list .)
+    COLON           reduce using rule 6 (name -> NAME .)
+    LPAREN          reduce using rule 6 (name -> NAME .)
+    MAPSTO          reduce using rule 6 (name -> NAME .)
+    OPERATOR        reduce using rule 6 (name -> NAME .)
+    $end            reduce using rule 6 (name -> NAME .)
+    RPAREN          reduce using rule 6 (name -> NAME .)
+    RPAREN_MAPSTO   reduce using rule 6 (name -> NAME .)
+    COMMA           reduce using rule 6 (name -> NAME .)
+    RBRACKET        reduce using rule 6 (name -> NAME .)
+    RBRACE          reduce using rule 6 (name -> NAME .)
 
 
 state 11
 
-    (14) literal -> set .
+    (15) literal -> NUMBER .
 
-    NAME            reduce using rule 14 (literal -> set .)
-    $end            reduce using rule 14 (literal -> set .)
-    RPAREN          reduce using rule 14 (literal -> set .)
-    RBRACKET        reduce using rule 14 (literal -> set .)
-    COMMA           reduce using rule 14 (literal -> set .)
-    RBRACE          reduce using rule 14 (literal -> set .)
+    OPERATOR        reduce using rule 15 (literal -> NUMBER .)
+    $end            reduce using rule 15 (literal -> NUMBER .)
+    RPAREN          reduce using rule 15 (literal -> NUMBER .)
+    RBRACKET        reduce using rule 15 (literal -> NUMBER .)
+    COMMA           reduce using rule 15 (literal -> NUMBER .)
+    RBRACE          reduce using rule 15 (literal -> NUMBER .)
 
 
 state 12
 
-    (15) literal -> lambda .
+    (16) literal -> list .
 
-    NAME            reduce using rule 15 (literal -> lambda .)
-    $end            reduce using rule 15 (literal -> lambda .)
-    RPAREN          reduce using rule 15 (literal -> lambda .)
-    RBRACKET        reduce using rule 15 (literal -> lambda .)
-    COMMA           reduce using rule 15 (literal -> lambda .)
-    RBRACE          reduce using rule 15 (literal -> lambda .)
+    OPERATOR        reduce using rule 16 (literal -> list .)
+    $end            reduce using rule 16 (literal -> list .)
+    RPAREN          reduce using rule 16 (literal -> list .)
+    RBRACKET        reduce using rule 16 (literal -> list .)
+    COMMA           reduce using rule 16 (literal -> list .)
+    RBRACE          reduce using rule 16 (literal -> list .)
 
 
 state 13
 
-    (18) list -> LBRACKET . arglist RBRACKET
-    (19) list -> LBRACKET . RBRACKET
-    (3) arglist -> . expression
-    (4) arglist -> . arglist COMMA expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (17) literal -> set .
 
-    RBRACKET        shift and go to state 24
-    NAME            shift and go to state 26
-    LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        reduce using rule 17 (literal -> set .)
+    $end            reduce using rule 17 (literal -> set .)
+    RPAREN          reduce using rule 17 (literal -> set .)
+    RBRACKET        reduce using rule 17 (literal -> set .)
+    COMMA           reduce using rule 17 (literal -> set .)
+    RBRACE          reduce using rule 17 (literal -> set .)
 
-    arglist                        shift and go to state 23
-    expression                     shift and go to state 25
-    operator_invocation            shift and go to state 5
-    call                           shift and go to state 6
-    literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
 
 state 14
 
-    (16) set -> LBRACE . arglist RBRACE
-    (17) set -> LBRACE . RBRACKET
-    (3) arglist -> . expression
-    (4) arglist -> . arglist COMMA expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (18) literal -> lambda .
 
-    RBRACKET        shift and go to state 28
-    NAME            shift and go to state 26
-    LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        reduce using rule 18 (literal -> lambda .)
+    $end            reduce using rule 18 (literal -> lambda .)
+    RPAREN          reduce using rule 18 (literal -> lambda .)
+    RBRACKET        reduce using rule 18 (literal -> lambda .)
+    COMMA           reduce using rule 18 (literal -> lambda .)
+    RBRACE          reduce using rule 18 (literal -> lambda .)
 
-    arglist                        shift and go to state 27
-    expression                     shift and go to state 25
-    operator_invocation            shift and go to state 5
-    call                           shift and go to state 6
-    literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
 
 state 15
 
-    (25) operator_invocation -> expression operator . expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (21) list -> LBRACKET . arglist RBRACKET
+    (22) list -> LBRACKET . RBRACKET
+    (3) arglist -> . expression
+    (4) arglist -> . arglist COMMA expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 26
+    RBRACKET        shift and go to state 25
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    expression                     shift and go to state 29
+    arglist                        shift and go to state 24
+    expression                     shift and go to state 26
+    name                           shift and go to state 27
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 16
 
-    (24) operator -> NAME .
+    (19) set -> LBRACE . arglist RBRACE
+    (20) set -> LBRACE . RBRACE
+    (3) arglist -> . expression
+    (4) arglist -> . arglist COMMA expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            reduce using rule 24 (operator -> NAME .)
-    LPAREN          reduce using rule 24 (operator -> NAME .)
-    NUMBER          reduce using rule 24 (operator -> NAME .)
-    LBRACKET        reduce using rule 24 (operator -> NAME .)
-    LBRACE          reduce using rule 24 (operator -> NAME .)
+    RBRACE          shift and go to state 29
+    LPAREN          shift and go to state 8
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
+    arglist                        shift and go to state 28
+    expression                     shift and go to state 26
+    name                           shift and go to state 27
+    operator_invocation            shift and go to state 5
+    call                           shift and go to state 6
+    literal                        shift and go to state 7
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 17
 
-    (7) assign -> NAME COLON . expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (27) operator_invocation -> expression OPERATOR . expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 26
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
     expression                     shift and go to state 30
+    name                           shift and go to state 27
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 18
 
-    (5) call -> NAME LPAREN . arglist RPAREN
-    (3) arglist -> . expression
-    (4) arglist -> . arglist COMMA expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (9) assign -> name COLON . expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 26
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    arglist                        shift and go to state 31
-    expression                     shift and go to state 25
+    name                           shift and go to state 27
+    expression                     shift and go to state 31
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 19
 
-    (20) lambda -> NAME MAPSTO . expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (7) call -> name LPAREN . arglist RPAREN
+    (3) arglist -> . expression
+    (4) arglist -> . arglist COMMA expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 26
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    expression                     shift and go to state 32
+    name                           shift and go to state 27
+    arglist                        shift and go to state 32
+    expression                     shift and go to state 26
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 20
 
-    (6) call -> LPAREN expression . RPAREN LPAREN arglist RPAREN
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (23) lambda -> name MAPSTO . expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    RPAREN          shift and go to state 33
-    NAME            shift and go to state 16
+    LPAREN          shift and go to state 8
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    operator                       shift and go to state 15
+    name                           shift and go to state 27
+    expression                     shift and go to state 33
+    operator_invocation            shift and go to state 5
+    call                           shift and go to state 6
+    literal                        shift and go to state 7
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 21
 
-    (21) lambda -> LPAREN capture_list . RPAREN_MAPSTO expression
-    (23) capture_list -> capture_list . COMMA NAME
+    (14) expression -> LPAREN expression . RPAREN
+    (8) call -> LPAREN expression . RPAREN LPAREN arglist RPAREN
+    (27) operator_invocation -> expression . OPERATOR expression
 
-    RPAREN_MAPSTO   shift and go to state 34
-    COMMA           shift and go to state 35
+    RPAREN          shift and go to state 34
+    OPERATOR        shift and go to state 17
 
 
 state 22
 
-    (8) expression -> NAME .
-    (22) capture_list -> NAME .
-    (5) call -> NAME . LPAREN arglist RPAREN
-    (20) lambda -> NAME . MAPSTO expression
+    (24) lambda -> LPAREN capture_list . RPAREN_MAPSTO expression
+    (26) capture_list -> capture_list . COMMA name
 
-    RPAREN          reduce using rule 8 (expression -> NAME .)
-    NAME            reduce using rule 8 (expression -> NAME .)
-    RPAREN_MAPSTO   reduce using rule 22 (capture_list -> NAME .)
-    COMMA           reduce using rule 22 (capture_list -> NAME .)
-    LPAREN          shift and go to state 18
-    MAPSTO          shift and go to state 19
+    RPAREN_MAPSTO   shift and go to state 35
+    COMMA           shift and go to state 36
 
 
 state 23
 
-    (18) list -> LBRACKET arglist . RBRACKET
-    (4) arglist -> arglist . COMMA expression
+    (10) expression -> name .
+    (25) capture_list -> name .
+    (7) call -> name . LPAREN arglist RPAREN
+    (23) lambda -> name . MAPSTO expression
 
-    RBRACKET        shift and go to state 36
-    COMMA           shift and go to state 37
+    RPAREN          reduce using rule 10 (expression -> name .)
+    OPERATOR        reduce using rule 10 (expression -> name .)
+    RPAREN_MAPSTO   reduce using rule 25 (capture_list -> name .)
+    COMMA           reduce using rule 25 (capture_list -> name .)
+    LPAREN          shift and go to state 19
+    MAPSTO          shift and go to state 20
 
 
 state 24
 
-    (19) list -> LBRACKET RBRACKET .
+    (21) list -> LBRACKET arglist . RBRACKET
+    (4) arglist -> arglist . COMMA expression
 
-    NAME            reduce using rule 19 (list -> LBRACKET RBRACKET .)
-    $end            reduce using rule 19 (list -> LBRACKET RBRACKET .)
-    RPAREN          reduce using rule 19 (list -> LBRACKET RBRACKET .)
-    RBRACKET        reduce using rule 19 (list -> LBRACKET RBRACKET .)
-    COMMA           reduce using rule 19 (list -> LBRACKET RBRACKET .)
-    RBRACE          reduce using rule 19 (list -> LBRACKET RBRACKET .)
+    RBRACKET        shift and go to state 37
+    COMMA           shift and go to state 38
 
 
 state 25
 
+    (22) list -> LBRACKET RBRACKET .
+
+    OPERATOR        reduce using rule 22 (list -> LBRACKET RBRACKET .)
+    $end            reduce using rule 22 (list -> LBRACKET RBRACKET .)
+    RPAREN          reduce using rule 22 (list -> LBRACKET RBRACKET .)
+    RBRACKET        reduce using rule 22 (list -> LBRACKET RBRACKET .)
+    COMMA           reduce using rule 22 (list -> LBRACKET RBRACKET .)
+    RBRACE          reduce using rule 22 (list -> LBRACKET RBRACKET .)
+
+
+state 26
+
     (3) arglist -> expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (27) operator_invocation -> expression . OPERATOR expression
 
     RBRACKET        reduce using rule 3 (arglist -> expression .)
     COMMA           reduce using rule 3 (arglist -> expression .)
     RBRACE          reduce using rule 3 (arglist -> expression .)
     RPAREN          reduce using rule 3 (arglist -> expression .)
-    NAME            shift and go to state 16
-
-    operator                       shift and go to state 15
-
-state 26
-
-    (8) expression -> NAME .
-    (5) call -> NAME . LPAREN arglist RPAREN
-    (20) lambda -> NAME . MAPSTO expression
-
-    NAME            reduce using rule 8 (expression -> NAME .)
-    RBRACKET        reduce using rule 8 (expression -> NAME .)
-    COMMA           reduce using rule 8 (expression -> NAME .)
-    RBRACE          reduce using rule 8 (expression -> NAME .)
-    $end            reduce using rule 8 (expression -> NAME .)
-    RPAREN          reduce using rule 8 (expression -> NAME .)
-    LPAREN          shift and go to state 18
-    MAPSTO          shift and go to state 19
+    OPERATOR        shift and go to state 17
 
 
 state 27
 
-    (16) set -> LBRACE arglist . RBRACE
-    (4) arglist -> arglist . COMMA expression
+    (10) expression -> name .
+    (7) call -> name . LPAREN arglist RPAREN
+    (23) lambda -> name . MAPSTO expression
 
-    RBRACE          shift and go to state 38
-    COMMA           shift and go to state 37
+    OPERATOR        reduce using rule 10 (expression -> name .)
+    RBRACKET        reduce using rule 10 (expression -> name .)
+    COMMA           reduce using rule 10 (expression -> name .)
+    RBRACE          reduce using rule 10 (expression -> name .)
+    $end            reduce using rule 10 (expression -> name .)
+    RPAREN          reduce using rule 10 (expression -> name .)
+    LPAREN          shift and go to state 19
+    MAPSTO          shift and go to state 20
 
 
 state 28
 
-    (17) set -> LBRACE RBRACKET .
+    (19) set -> LBRACE arglist . RBRACE
+    (4) arglist -> arglist . COMMA expression
 
-    NAME            reduce using rule 17 (set -> LBRACE RBRACKET .)
-    $end            reduce using rule 17 (set -> LBRACE RBRACKET .)
-    RPAREN          reduce using rule 17 (set -> LBRACE RBRACKET .)
-    RBRACKET        reduce using rule 17 (set -> LBRACE RBRACKET .)
-    COMMA           reduce using rule 17 (set -> LBRACE RBRACKET .)
-    RBRACE          reduce using rule 17 (set -> LBRACE RBRACKET .)
+    RBRACE          shift and go to state 39
+    COMMA           shift and go to state 38
 
 
 state 29
 
-    (25) operator_invocation -> expression operator expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (20) set -> LBRACE RBRACE .
 
-  ! shift/reduce conflict for NAME resolved as shift
-    $end            reduce using rule 25 (operator_invocation -> expression operator expression .)
-    RPAREN          reduce using rule 25 (operator_invocation -> expression operator expression .)
-    RBRACKET        reduce using rule 25 (operator_invocation -> expression operator expression .)
-    COMMA           reduce using rule 25 (operator_invocation -> expression operator expression .)
-    RBRACE          reduce using rule 25 (operator_invocation -> expression operator expression .)
-    NAME            shift and go to state 16
+    OPERATOR        reduce using rule 20 (set -> LBRACE RBRACE .)
+    $end            reduce using rule 20 (set -> LBRACE RBRACE .)
+    RPAREN          reduce using rule 20 (set -> LBRACE RBRACE .)
+    RBRACKET        reduce using rule 20 (set -> LBRACE RBRACE .)
+    COMMA           reduce using rule 20 (set -> LBRACE RBRACE .)
+    RBRACE          reduce using rule 20 (set -> LBRACE RBRACE .)
 
-  ! NAME            [ reduce using rule 25 (operator_invocation -> expression operator expression .) ]
-
-    operator                       shift and go to state 15
 
 state 30
 
-    (7) assign -> NAME COLON expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (27) operator_invocation -> expression OPERATOR expression .
+    (27) operator_invocation -> expression . OPERATOR expression
 
-    $end            reduce using rule 7 (assign -> NAME COLON expression .)
-    NAME            shift and go to state 16
+    OPERATOR        reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
+    $end            reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
+    RPAREN          reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
+    RBRACKET        reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
+    COMMA           reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
+    RBRACE          reduce using rule 27 (operator_invocation -> expression OPERATOR expression .)
 
-    operator                       shift and go to state 15
+  ! OPERATOR        [ shift and go to state 17 ]
+
 
 state 31
 
-    (5) call -> NAME LPAREN arglist . RPAREN
-    (4) arglist -> arglist . COMMA expression
+    (9) assign -> name COLON expression .
+    (27) operator_invocation -> expression . OPERATOR expression
 
-    RPAREN          shift and go to state 39
-    COMMA           shift and go to state 37
+    $end            reduce using rule 9 (assign -> name COLON expression .)
+    OPERATOR        shift and go to state 17
 
 
 state 32
 
-    (20) lambda -> NAME MAPSTO expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (7) call -> name LPAREN arglist . RPAREN
+    (4) arglist -> arglist . COMMA expression
 
-  ! shift/reduce conflict for NAME resolved as shift
-    $end            reduce using rule 20 (lambda -> NAME MAPSTO expression .)
-    RPAREN          reduce using rule 20 (lambda -> NAME MAPSTO expression .)
-    RBRACKET        reduce using rule 20 (lambda -> NAME MAPSTO expression .)
-    COMMA           reduce using rule 20 (lambda -> NAME MAPSTO expression .)
-    RBRACE          reduce using rule 20 (lambda -> NAME MAPSTO expression .)
-    NAME            shift and go to state 16
+    RPAREN          shift and go to state 40
+    COMMA           shift and go to state 38
 
-  ! NAME            [ reduce using rule 20 (lambda -> NAME MAPSTO expression .) ]
-
-    operator                       shift and go to state 15
 
 state 33
 
-    (6) call -> LPAREN expression RPAREN . LPAREN arglist RPAREN
+    (23) lambda -> name MAPSTO expression .
+    (27) operator_invocation -> expression . OPERATOR expression
 
-    LPAREN          shift and go to state 40
+    $end            reduce using rule 23 (lambda -> name MAPSTO expression .)
+    RPAREN          reduce using rule 23 (lambda -> name MAPSTO expression .)
+    RBRACKET        reduce using rule 23 (lambda -> name MAPSTO expression .)
+    COMMA           reduce using rule 23 (lambda -> name MAPSTO expression .)
+    RBRACE          reduce using rule 23 (lambda -> name MAPSTO expression .)
+    OPERATOR        shift and go to state 17
+
+  ! OPERATOR        [ reduce using rule 23 (lambda -> name MAPSTO expression .) ]
 
 
 state 34
 
-    (21) lambda -> LPAREN capture_list RPAREN_MAPSTO . expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (14) expression -> LPAREN expression RPAREN .
+    (8) call -> LPAREN expression RPAREN . LPAREN arglist RPAREN
 
-    NAME            shift and go to state 26
-    LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    RBRACKET        reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 14 (expression -> LPAREN expression RPAREN .)
+    LPAREN          shift and go to state 41
 
-    expression                     shift and go to state 41
-    operator_invocation            shift and go to state 5
-    call                           shift and go to state 6
-    literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
 
 state 35
 
-    (23) capture_list -> capture_list COMMA . NAME
+    (24) lambda -> LPAREN capture_list RPAREN_MAPSTO . expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            shift and go to state 42
-
-
-state 36
-
-    (18) list -> LBRACKET arglist RBRACKET .
-
-    NAME            reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-    $end            reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-    RPAREN          reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-    RBRACKET        reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-    COMMA           reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-    RBRACE          reduce using rule 18 (list -> LBRACKET arglist RBRACKET .)
-
-
-state 37
-
-    (4) arglist -> arglist COMMA . expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
-
-    NAME            shift and go to state 26
     LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-    expression                     shift and go to state 43
+    expression                     shift and go to state 42
+    name                           shift and go to state 27
     operator_invocation            shift and go to state 5
     call                           shift and go to state 6
     literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
+
+state 36
+
+    (26) capture_list -> capture_list COMMA . name
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+
+    name                           shift and go to state 43
+
+state 37
+
+    (21) list -> LBRACKET arglist RBRACKET .
+
+    OPERATOR        reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+    $end            reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+    RPAREN          reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+    RBRACKET        reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+    COMMA           reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+    RBRACE          reduce using rule 21 (list -> LBRACKET arglist RBRACKET .)
+
 
 state 38
 
-    (16) set -> LBRACE arglist RBRACE .
+    (4) arglist -> arglist COMMA . expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-    NAME            reduce using rule 16 (set -> LBRACE arglist RBRACE .)
-    $end            reduce using rule 16 (set -> LBRACE arglist RBRACE .)
-    RPAREN          reduce using rule 16 (set -> LBRACE arglist RBRACE .)
-    RBRACKET        reduce using rule 16 (set -> LBRACE arglist RBRACE .)
-    COMMA           reduce using rule 16 (set -> LBRACE arglist RBRACE .)
-    RBRACE          reduce using rule 16 (set -> LBRACE arglist RBRACE .)
+    LPAREN          shift and go to state 8
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
+    expression                     shift and go to state 44
+    name                           shift and go to state 27
+    operator_invocation            shift and go to state 5
+    call                           shift and go to state 6
+    literal                        shift and go to state 7
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 39
 
-    (5) call -> NAME LPAREN arglist RPAREN .
+    (19) set -> LBRACE arglist RBRACE .
 
-    NAME            reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
-    $end            reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
-    RPAREN          reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
-    RBRACKET        reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
-    COMMA           reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
-    RBRACE          reduce using rule 5 (call -> NAME LPAREN arglist RPAREN .)
+    OPERATOR        reduce using rule 19 (set -> LBRACE arglist RBRACE .)
+    $end            reduce using rule 19 (set -> LBRACE arglist RBRACE .)
+    RPAREN          reduce using rule 19 (set -> LBRACE arglist RBRACE .)
+    RBRACKET        reduce using rule 19 (set -> LBRACE arglist RBRACE .)
+    COMMA           reduce using rule 19 (set -> LBRACE arglist RBRACE .)
+    RBRACE          reduce using rule 19 (set -> LBRACE arglist RBRACE .)
 
 
 state 40
 
-    (6) call -> LPAREN expression RPAREN LPAREN . arglist RPAREN
-    (3) arglist -> . expression
-    (4) arglist -> . arglist COMMA expression
-    (8) expression -> . NAME
-    (9) expression -> . operator_invocation
-    (10) expression -> . call
-    (11) expression -> . literal
-    (25) operator_invocation -> . expression operator expression
-    (5) call -> . NAME LPAREN arglist RPAREN
-    (6) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
-    (12) literal -> . NUMBER
-    (13) literal -> . list
-    (14) literal -> . set
-    (15) literal -> . lambda
-    (18) list -> . LBRACKET arglist RBRACKET
-    (19) list -> . LBRACKET RBRACKET
-    (16) set -> . LBRACE arglist RBRACE
-    (17) set -> . LBRACE RBRACKET
-    (20) lambda -> . NAME MAPSTO expression
-    (21) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
+    (7) call -> name LPAREN arglist RPAREN .
 
-    NAME            shift and go to state 26
-    LPAREN          shift and go to state 8
-    NUMBER          shift and go to state 9
-    LBRACKET        shift and go to state 13
-    LBRACE          shift and go to state 14
+    OPERATOR        reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
+    $end            reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
+    RPAREN          reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
+    RBRACKET        reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
+    COMMA           reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
+    RBRACE          reduce using rule 7 (call -> name LPAREN arglist RPAREN .)
 
-    expression                     shift and go to state 25
-    arglist                        shift and go to state 44
-    operator_invocation            shift and go to state 5
-    call                           shift and go to state 6
-    literal                        shift and go to state 7
-    list                           shift and go to state 10
-    set                            shift and go to state 11
-    lambda                         shift and go to state 12
 
 state 41
 
-    (21) lambda -> LPAREN capture_list RPAREN_MAPSTO expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (8) call -> LPAREN expression RPAREN LPAREN . arglist RPAREN
+    (3) arglist -> . expression
+    (4) arglist -> . arglist COMMA expression
+    (10) expression -> . name
+    (11) expression -> . operator_invocation
+    (12) expression -> . call
+    (13) expression -> . literal
+    (14) expression -> . LPAREN expression RPAREN
+    (5) name -> . OPERATOR
+    (6) name -> . NAME
+    (27) operator_invocation -> . expression OPERATOR expression
+    (7) call -> . name LPAREN arglist RPAREN
+    (8) call -> . LPAREN expression RPAREN LPAREN arglist RPAREN
+    (15) literal -> . NUMBER
+    (16) literal -> . list
+    (17) literal -> . set
+    (18) literal -> . lambda
+    (21) list -> . LBRACKET arglist RBRACKET
+    (22) list -> . LBRACKET RBRACKET
+    (19) set -> . LBRACE arglist RBRACE
+    (20) set -> . LBRACE RBRACE
+    (23) lambda -> . name MAPSTO expression
+    (24) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
-  ! shift/reduce conflict for NAME resolved as shift
-    $end            reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
-    RPAREN          reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
-    RBRACKET        reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
-    COMMA           reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
-    RBRACE          reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
-    NAME            shift and go to state 16
+    LPAREN          shift and go to state 8
+    OPERATOR        shift and go to state 9
+    NAME            shift and go to state 10
+    NUMBER          shift and go to state 11
+    LBRACKET        shift and go to state 15
+    LBRACE          shift and go to state 16
 
-  ! NAME            [ reduce using rule 21 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .) ]
-
-    operator                       shift and go to state 15
+    expression                     shift and go to state 26
+    arglist                        shift and go to state 45
+    name                           shift and go to state 27
+    operator_invocation            shift and go to state 5
+    call                           shift and go to state 6
+    literal                        shift and go to state 7
+    list                           shift and go to state 12
+    set                            shift and go to state 13
+    lambda                         shift and go to state 14
 
 state 42
 
-    (23) capture_list -> capture_list COMMA NAME .
+    (24) lambda -> LPAREN capture_list RPAREN_MAPSTO expression .
+    (27) operator_invocation -> expression . OPERATOR expression
 
-    RPAREN_MAPSTO   reduce using rule 23 (capture_list -> capture_list COMMA NAME .)
-    COMMA           reduce using rule 23 (capture_list -> capture_list COMMA NAME .)
+    $end            reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
+    RPAREN          reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
+    RBRACKET        reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
+    COMMA           reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
+    RBRACE          reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .)
+    OPERATOR        shift and go to state 17
+
+  ! OPERATOR        [ reduce using rule 24 (lambda -> LPAREN capture_list RPAREN_MAPSTO expression .) ]
 
 
 state 43
 
+    (26) capture_list -> capture_list COMMA name .
+
+    RPAREN_MAPSTO   reduce using rule 26 (capture_list -> capture_list COMMA name .)
+    COMMA           reduce using rule 26 (capture_list -> capture_list COMMA name .)
+
+
+state 44
+
     (4) arglist -> arglist COMMA expression .
-    (25) operator_invocation -> expression . operator expression
-    (24) operator -> . NAME
+    (27) operator_invocation -> expression . OPERATOR expression
 
     RBRACKET        reduce using rule 4 (arglist -> arglist COMMA expression .)
     COMMA           reduce using rule 4 (arglist -> arglist COMMA expression .)
     RBRACE          reduce using rule 4 (arglist -> arglist COMMA expression .)
     RPAREN          reduce using rule 4 (arglist -> arglist COMMA expression .)
-    NAME            shift and go to state 16
-
-    operator                       shift and go to state 15
-
-state 44
-
-    (6) call -> LPAREN expression RPAREN LPAREN arglist . RPAREN
-    (4) arglist -> arglist . COMMA expression
-
-    RPAREN          shift and go to state 45
-    COMMA           shift and go to state 37
+    OPERATOR        shift and go to state 17
 
 
 state 45
 
-    (6) call -> LPAREN expression RPAREN LPAREN arglist RPAREN .
+    (8) call -> LPAREN expression RPAREN LPAREN arglist . RPAREN
+    (4) arglist -> arglist . COMMA expression
 
-    NAME            reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
-    $end            reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
-    RPAREN          reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
-    RBRACKET        reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
-    COMMA           reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
-    RBRACE          reduce using rule 6 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    RPAREN          shift and go to state 46
+    COMMA           shift and go to state 38
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for NAME in state 29 resolved as shift
-WARNING: shift/reduce conflict for NAME in state 32 resolved as shift
-WARNING: shift/reduce conflict for NAME in state 41 resolved as shift
+
+state 46
+
+    (8) call -> LPAREN expression RPAREN LPAREN arglist RPAREN .
+
+    OPERATOR        reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    $end            reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    RPAREN          reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    RBRACKET        reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    COMMA           reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+    RBRACE          reduce using rule 8 (call -> LPAREN expression RPAREN LPAREN arglist RPAREN .)
+
