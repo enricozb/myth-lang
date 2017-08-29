@@ -15,6 +15,8 @@ class DictStack:
         self.dicts = [names]
 
     def push(self, names):
+        if builtins.verbose:
+            print('pushing', names)
         self.dicts.append(names)
 
     def pop(self):
@@ -199,9 +201,13 @@ def p_list(t):
 
 def p_lambda(t):
     """
-    lambda : LPAREN capture_list RPAREN_MAPSTO expression
+    lambda : NAME MAPSTO expression
+           | LPAREN capture_list RPAREN_MAPSTO expression
     """
-    t[0] = lambda_literal(t[2], t[4])
+    if len(t) == 4:
+        t[0] = lambda_literal([t[1]], t[3])
+    else:
+        t[0] = lambda_literal(t[2], t[4])
 
 def p_capture_list(t):
     """

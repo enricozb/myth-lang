@@ -17,9 +17,6 @@ t_RBRACKET = r'\]'
 t_LBRACE = r'{'
 t_RBRACE = r'}'
 t_COMMA = r','
-t_MAPSTO = r'->'
-t_RPAREN_MAPSTO = r'\)\s+->'
-t_OPERATOR = r'[\+\-\*\/\^=]+|in'
 t_BAR = r'\|'
 
 def t_NUMBER(t):
@@ -30,6 +27,18 @@ def t_NUMBER(t):
 def t_STRING(t):
     r"L?\'(\\.|[^\\'])*\'"
     t.value = literal_eval(t.value)
+    return t
+
+def t_RPAREN_MAPSTO(t):
+    r'\)\s+->'
+    return t
+
+def t_MAPSTO(t):
+    r'->'
+    return t
+
+def t_OPERATOR(t):
+    r'[\+\-\*\/\^=]+|in'
     return t
 
 def t_newline(t):

@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '31BED9B31E57C664640940400AE5B928'
+_lr_signature = '4A38C30BFE9254D32679FFD0113F68A0'
     
-_lr_action_items = {'LPAREN':([0,4,9,10,11,12,18,19,20,21,22,23,26,27,31,38,39,40,44,48,51,53,],[9,22,9,-5,-6,27,9,9,9,9,9,38,22,9,22,9,48,9,9,9,9,9,]),'OPERATOR':([0,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,24,26,27,29,30,31,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,51,52,53,54,56,57,58,],[10,20,-12,-13,-14,-15,-16,10,-5,-6,-20,-21,-22,-23,-24,10,10,10,10,10,20,-12,10,-28,20,-12,-26,-32,20,-7,10,-17,10,10,20,-27,10,-25,-8,20,10,20,10,20,10,-9,20,20,-10,]),'NAME':([0,9,18,19,20,21,22,27,38,40,41,44,48,51,53,],[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,]),'BAR':([0,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,27,29,31,33,34,36,38,39,40,43,44,45,46,48,49,51,53,54,56,57,58,],[12,-13,23,-15,-16,12,-5,-6,-20,-21,-22,-23,-24,12,12,12,12,12,12,-28,-12,-26,-32,-7,12,-17,12,-27,12,-25,-8,12,-29,12,12,-9,-18,-19,-10,]),'NUMBER':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[13,13,13,13,13,13,13,13,13,13,13,13,13,13,]),'STRING':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'LBRACKET':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'LBRACE':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'$end':([1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,29,31,33,34,35,36,39,43,45,46,49,54,56,57,58,],[0,-1,-2,-12,-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,-28,-12,-26,-32,-11,-7,-17,-27,-25,-8,-29,-9,-18,-19,-10,]),'COLON':([4,10,11,],[21,-5,-6,]),'RPAREN':([5,6,7,8,10,11,13,14,15,16,17,22,24,26,29,30,31,33,34,36,37,39,43,45,46,48,49,52,54,55,56,57,58,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,36,39,-12,-28,-3,-12,-26,-32,-7,46,-17,-27,-25,-8,54,-29,-4,-9,58,-18,-19,-10,]),'RBRACKET':([5,6,7,8,10,11,13,14,15,16,17,18,28,29,30,31,33,34,36,39,43,45,46,49,52,54,56,57,58,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,29,43,-28,-3,-12,-26,-32,-7,-17,-27,-25,-8,-29,-4,-9,-18,-19,-10,]),'COMMA':([5,6,7,8,10,11,13,14,15,16,17,25,26,28,29,30,31,32,33,34,36,37,39,43,45,46,49,50,52,54,55,56,57,58,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,41,-30,44,-28,-3,-12,44,-26,-32,-7,44,-17,-27,-25,-8,-29,-31,-4,-9,44,-18,-19,-10,]),'RBRACE':([5,6,7,8,10,11,13,14,15,16,17,19,29,30,31,32,33,34,36,39,43,45,46,49,52,54,56,57,58,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,33,-28,-3,-12,45,-26,-32,-7,-17,-27,-25,-8,-29,-4,-9,-18,-19,-10,]),'RPAREN_MAPSTO':([5,6,7,8,10,11,13,14,15,16,17,25,26,29,31,33,34,36,39,42,43,45,46,47,49,50,54,56,57,58,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,40,-30,-28,-12,-26,-32,-7,-17,51,-27,-25,-8,53,-29,-31,-9,-18,-19,-10,]),}
+_lr_action_items = {'LPAREN':([0,4,9,10,11,12,18,19,20,21,22,23,26,27,28,32,39,40,41,46,50,54,56,],[9,22,9,-5,-6,28,9,9,9,9,9,39,22,9,9,22,9,50,9,9,9,9,9,]),'OPERATOR':([0,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,24,26,27,28,30,31,32,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,54,55,56,57,59,60,61,],[10,20,-12,-13,-14,-15,-16,10,-5,-6,-20,-21,-22,-23,-24,10,10,10,10,10,20,-12,10,10,-28,20,-12,-26,-33,20,-7,10,-17,10,10,20,20,-27,10,-25,-8,20,10,20,10,20,10,-9,20,20,-10,]),'NAME':([0,9,18,19,20,21,22,27,28,39,41,42,46,50,54,56,],[11,11,11,11,11,11,11,11,11,11,11,53,11,11,11,11,]),'BAR':([0,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,27,28,30,32,34,35,37,39,40,41,43,45,46,47,48,50,51,54,56,57,59,60,61,],[12,-13,23,-15,-16,12,-5,-6,-20,-21,-22,-23,-24,12,12,12,12,12,12,12,-28,-12,-26,-33,-7,12,-17,12,-29,-27,12,-25,-8,12,-30,12,12,-9,-18,-19,-10,]),'NUMBER':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,]),'STRING':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'LBRACKET':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'LBRACE':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'$end':([1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,30,32,34,35,36,37,40,43,45,47,48,51,57,59,60,61,],[0,-1,-2,-12,-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,-28,-12,-26,-33,-11,-7,-17,-29,-27,-25,-8,-30,-9,-18,-19,-10,]),'COLON':([4,10,11,],[21,-5,-6,]),'RPAREN':([5,6,7,8,10,11,13,14,15,16,17,22,24,26,30,31,32,34,35,37,38,40,43,45,47,48,50,51,55,57,58,59,60,61,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,37,40,-12,-28,-3,-12,-26,-33,-7,48,-17,-29,-27,-25,-8,57,-30,-4,-9,61,-18,-19,-10,]),'RBRACKET':([5,6,7,8,10,11,13,14,15,16,17,18,29,30,31,32,34,35,37,40,43,45,47,48,51,55,57,59,60,61,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,30,45,-28,-3,-12,-26,-33,-7,-17,-29,-27,-25,-8,-30,-4,-9,-18,-19,-10,]),'COMMA':([5,6,7,8,10,11,13,14,15,16,17,25,26,29,30,31,32,33,34,35,37,38,40,43,45,47,48,51,52,53,55,57,58,59,60,61,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,42,-31,46,-28,-3,-12,46,-26,-33,-7,46,-17,-29,-27,-25,-8,-30,-32,-6,-4,-9,46,-18,-19,-10,]),'RBRACE':([5,6,7,8,10,11,13,14,15,16,17,19,30,31,32,33,34,35,37,40,43,45,47,48,51,55,57,59,60,61,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,34,-28,-3,-12,47,-26,-33,-7,-17,-29,-27,-25,-8,-30,-4,-9,-18,-19,-10,]),'RPAREN_MAPSTO':([5,6,7,8,10,11,13,14,15,16,17,25,26,30,32,34,35,37,40,43,44,45,47,48,49,51,52,53,57,59,60,61,],[-13,-14,-15,-16,-5,-6,-20,-21,-22,-23,-24,41,-31,-28,-12,-26,-33,-7,-17,-29,54,-27,-25,-8,56,-30,-32,-6,-9,-18,-19,-10,]),'MAPSTO':([11,],[27,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'assign':([0,],[2,]),'expression':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[3,24,30,30,34,35,30,42,47,49,52,30,56,57,]),'name':([0,9,18,19,20,21,22,27,38,40,41,44,48,51,53,],[4,26,31,31,31,31,31,31,31,31,50,31,31,31,31,]),'operator_invocation':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,]),'conditional':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[6,6,6,6,6,6,6,6,6,6,6,6,6,6,]),'call':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,]),'literal':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'list':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'set':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'lambda':([0,9,18,19,20,21,22,27,38,40,44,48,51,53,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'capture_list':([9,],[25,]),'arglist':([18,19,22,48,],[28,32,37,55,]),}
+_lr_goto_items = {'statement':([0,],[1,]),'assign':([0,],[2,]),'expression':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[3,24,31,31,35,36,31,43,44,49,51,55,31,59,60,]),'name':([0,9,18,19,20,21,22,27,28,39,41,42,46,50,54,56,],[4,26,32,32,32,32,32,32,32,32,32,52,32,32,32,32,]),'operator_invocation':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,]),'conditional':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]),'call':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,]),'literal':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,]),'list':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,]),'set':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,]),'lambda':([0,9,18,19,20,21,22,27,28,39,41,46,50,54,56,],[16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,]),'capture_list':([9,],[25,]),'arglist':([18,19,22,50,],[29,33,38,58,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,36 +26,37 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> assign','statement',1,'p_statment','myth_parse.py',86),
-  ('statement -> expression','statement',1,'p_statment','myth_parse.py',87),
-  ('arglist -> expression','arglist',1,'p_arglist','myth_parse.py',98),
-  ('arglist -> arglist COMMA expression','arglist',3,'p_arglist','myth_parse.py',99),
-  ('name -> OPERATOR','name',1,'p_name','myth_parse.py',108),
-  ('name -> NAME','name',1,'p_name','myth_parse.py',109),
-  ('call -> name LPAREN RPAREN','call',3,'p_call_name','myth_parse.py',115),
-  ('call -> name LPAREN arglist RPAREN','call',4,'p_call_name','myth_parse.py',116),
-  ('call -> LPAREN expression RPAREN LPAREN RPAREN','call',5,'p_call_expression','myth_parse.py',125),
-  ('call -> LPAREN expression RPAREN LPAREN arglist RPAREN','call',6,'p_call_expression','myth_parse.py',126),
-  ('assign -> name COLON expression','assign',3,'p_assign','myth_parse.py',135),
-  ('expression -> name','expression',1,'p_expression_name','myth_parse.py',141),
-  ('expression -> operator_invocation','expression',1,'p_expression','myth_parse.py',147),
-  ('expression -> conditional','expression',1,'p_expression','myth_parse.py',148),
-  ('expression -> call','expression',1,'p_expression','myth_parse.py',149),
-  ('expression -> literal','expression',1,'p_expression','myth_parse.py',150),
-  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression','myth_parse.py',151),
-  ('conditional -> BAR LPAREN expression RPAREN_MAPSTO expression','conditional',5,'p_conditional','myth_parse.py',160),
-  ('conditional -> conditional BAR LPAREN expression RPAREN_MAPSTO expression','conditional',6,'p_conditional','myth_parse.py',161),
-  ('literal -> NUMBER','literal',1,'p_literal','myth_parse.py',170),
-  ('literal -> list','literal',1,'p_literal','myth_parse.py',171),
-  ('literal -> set','literal',1,'p_literal','myth_parse.py',172),
-  ('literal -> lambda','literal',1,'p_literal','myth_parse.py',173),
-  ('literal -> STRING','literal',1,'p_literal','myth_parse.py',174),
-  ('set -> LBRACE arglist RBRACE','set',3,'p_set','myth_parse.py',180),
-  ('set -> LBRACE RBRACE','set',2,'p_set','myth_parse.py',181),
-  ('list -> LBRACKET arglist RBRACKET','list',3,'p_list','myth_parse.py',190),
-  ('list -> LBRACKET RBRACKET','list',2,'p_list','myth_parse.py',191),
-  ('lambda -> LPAREN capture_list RPAREN_MAPSTO expression','lambda',4,'p_lambda','myth_parse.py',200),
-  ('capture_list -> name','capture_list',1,'p_capture_list','myth_parse.py',206),
-  ('capture_list -> capture_list COMMA name','capture_list',3,'p_capture_list','myth_parse.py',207),
-  ('operator_invocation -> expression OPERATOR expression','operator_invocation',3,'p_operator_invocation','myth_parse.py',216),
+  ('statement -> assign','statement',1,'p_statment','myth_parse.py',90),
+  ('statement -> expression','statement',1,'p_statment','myth_parse.py',91),
+  ('arglist -> expression','arglist',1,'p_arglist','myth_parse.py',102),
+  ('arglist -> arglist COMMA expression','arglist',3,'p_arglist','myth_parse.py',103),
+  ('name -> OPERATOR','name',1,'p_name','myth_parse.py',112),
+  ('name -> NAME','name',1,'p_name','myth_parse.py',113),
+  ('call -> name LPAREN RPAREN','call',3,'p_call_name','myth_parse.py',119),
+  ('call -> name LPAREN arglist RPAREN','call',4,'p_call_name','myth_parse.py',120),
+  ('call -> LPAREN expression RPAREN LPAREN RPAREN','call',5,'p_call_expression','myth_parse.py',129),
+  ('call -> LPAREN expression RPAREN LPAREN arglist RPAREN','call',6,'p_call_expression','myth_parse.py',130),
+  ('assign -> name COLON expression','assign',3,'p_assign','myth_parse.py',139),
+  ('expression -> name','expression',1,'p_expression_name','myth_parse.py',145),
+  ('expression -> operator_invocation','expression',1,'p_expression','myth_parse.py',151),
+  ('expression -> conditional','expression',1,'p_expression','myth_parse.py',152),
+  ('expression -> call','expression',1,'p_expression','myth_parse.py',153),
+  ('expression -> literal','expression',1,'p_expression','myth_parse.py',154),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression','myth_parse.py',155),
+  ('conditional -> BAR LPAREN expression RPAREN_MAPSTO expression','conditional',5,'p_conditional','myth_parse.py',164),
+  ('conditional -> conditional BAR LPAREN expression RPAREN_MAPSTO expression','conditional',6,'p_conditional','myth_parse.py',165),
+  ('literal -> NUMBER','literal',1,'p_literal','myth_parse.py',174),
+  ('literal -> list','literal',1,'p_literal','myth_parse.py',175),
+  ('literal -> set','literal',1,'p_literal','myth_parse.py',176),
+  ('literal -> lambda','literal',1,'p_literal','myth_parse.py',177),
+  ('literal -> STRING','literal',1,'p_literal','myth_parse.py',178),
+  ('set -> LBRACE arglist RBRACE','set',3,'p_set','myth_parse.py',184),
+  ('set -> LBRACE RBRACE','set',2,'p_set','myth_parse.py',185),
+  ('list -> LBRACKET arglist RBRACKET','list',3,'p_list','myth_parse.py',194),
+  ('list -> LBRACKET RBRACKET','list',2,'p_list','myth_parse.py',195),
+  ('lambda -> NAME MAPSTO expression','lambda',3,'p_lambda','myth_parse.py',204),
+  ('lambda -> LPAREN capture_list RPAREN_MAPSTO expression','lambda',4,'p_lambda','myth_parse.py',205),
+  ('capture_list -> name','capture_list',1,'p_capture_list','myth_parse.py',214),
+  ('capture_list -> capture_list COMMA name','capture_list',3,'p_capture_list','myth_parse.py',215),
+  ('operator_invocation -> expression OPERATOR expression','operator_invocation',3,'p_operator_invocation','myth_parse.py',224),
 ]
