@@ -45,6 +45,7 @@ names['*'] = operator.mul
 names['/'] = operator.truediv
 names['//'] = operator.floordiv
 names['^'] = operator.pow
+names['='] = operator.eq
 
 def lambda_literal(capturelist, expression):
     def func(*args):
@@ -84,7 +85,7 @@ def p_statment(t):
         pprint(t[1])
     val = eval_bytecode(t[1])
     if val is not None:
-        print(val)
+        print(repr(val))
         names['_'] = val
 
 def p_arglist(t):
@@ -106,15 +107,23 @@ def p_name(t):
 
 def p_call_name(t):
     """
-    call : name LPAREN arglist RPAREN
+    call : name LPAREN RPAREN
+         | name LPAREN arglist RPAREN
     """
-    t[0] = ('call', ('name', t[1]), t[3])
+    if len(t) == 4:
+        t[0] = ('call', ('name', t[1]), [])
+    else:
+        t[0] = ('call', ('name', t[1]), t[3])
 
 def p_call_expression(t):
     """
-    call : LPAREN expression RPAREN LPAREN arglist RPAREN
+    call : LPAREN expression RPAREN LPAREN RPAREN
+         | LPAREN expression RPAREN LPAREN arglist RPAREN
     """
-    t[0] = ('call', t[2], t[5])
+    if len(t) == 6:
+        t[0] = ('call', t[2], [])
+    else:
+        t[0] = ('call', t[2], t[5])
 
 def p_assign(t):
     """
@@ -140,12 +149,13 @@ def p_expression(t):
     else:
         t[0] = t[2]
 
-def p_literal_number(t):
+def p_literal(t):
     """
     literal : NUMBER
             | list
             | set
             | lambda
+            | STRING
     """
     t[0] = ('literal', t[1])
 
@@ -197,7 +207,7 @@ def p_operator_invocation(t):
 
 
 def p_error(t):
-    val = f" at '{t.value}'" if t else ''
+    val = f" at '{t.value}' on line {t.lexer.lineno}" if t else ''
     raise Exception(f"Syntax error{val}")
 
 import ply.yacc as yacc

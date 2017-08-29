@@ -8,6 +8,12 @@ from myth_parse import parser
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        'filename',
+        nargs='?',
+        default=None,
+        help='Name of file to run',
+    )
+    parser.add_argument(
         '-v',
         '--verbose',
         help='Show debugging output',
@@ -18,6 +24,12 @@ def parse_args():
 def main():
     args = parse_args()
     builtins.verbose = args.verbose
+
+    if args.filename:
+        with open(args.filename, 'r') as file:
+            for line in file:
+                parser.parse(line)
+        return
 
     historypath = os.path.expanduser('~/.mythhistory')
 

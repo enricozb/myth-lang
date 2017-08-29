@@ -1,6 +1,8 @@
+from ast import literal_eval
+
 tokens = (
     'NAME', 'NUMBER', 'COLON', 'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET',
-    'LBRACE', 'RBRACE', 'COMMA', 'MAPSTO', 'RPAREN_MAPSTO', 'OPERATOR'
+    'LBRACE', 'RBRACE', 'COMMA', 'MAPSTO', 'RPAREN_MAPSTO', 'OPERATOR', 'STRING'
 )
 
 t_ignore = ' '
@@ -16,11 +18,16 @@ t_RBRACE = r'}'
 t_COMMA = r','
 t_MAPSTO = r'->'
 t_RPAREN_MAPSTO = r'\)\s+->'
-t_OPERATOR = r'[\+\-\*\/\^]+'
+t_OPERATOR = r'[\+\-\*\/\^=]+'
 
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+def t_STRING(t):
+    r"L?\'(\\.|[^\\'])*\'"
+    t.value = literal_eval(t.value)
     return t
 
 def t_newline(t):
