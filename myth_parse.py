@@ -1,6 +1,7 @@
 import builtins
 import utils
 
+from contextlib import contextmanager
 from functools import reduce, partial
 from myth_lex import tokens
 from pprint import pprint
@@ -15,8 +16,11 @@ class DictStack:
     def __init__(self, names):
         self.dicts = [names]
 
+    @contextmanager
     def push(self, names):
         self.dicts.append(names)
+        yield
+        self.pop()
 
     def pop(self):
         self.dicts.pop()
@@ -81,11 +85,15 @@ def lambda_literal(capturelist, expression):
                 f'but got {received}'
             )
 
-        names.push(dict(zip(capturelist, args)))
-        val = eval_bytecode(expression)
-        names.pop()
+        received_args = dict(zip(capturelist, args))
+        with names.push({**func.bound_args, **received_args}):
+            val = eval_bytecode(expression)
+            if callable(val):
+                val.bound_args = {**func.bound_args, **received_args}
+
         return val
 
+    func.bound_args = {}
     return func
 
 def eval_bytecode(code):
@@ -149,10 +157,14 @@ def p_call_expression(t):
     call : LPAREN expression RPAREN LPAREN RPAREN
          | LPAREN expression RPAREN LPAREN arglist RPAREN
     """
-    if len(t) == 6:
-        t[0] = ('call', t[2], [])
-    else:
-        t[0] = ('call', t[2], t[5])
+    t[0] = ('call', t[2], [] if len(t) == 6 else t[5])
+
+def p_call_curried(t):
+    """
+    call : call LPAREN RPAREN
+         | call LPAREN arglist RPAREN
+    """
+    t[0] = ('call', t[1], [] if len(t) == 4 else t[3])
 
 def p_assign(t):
     """
