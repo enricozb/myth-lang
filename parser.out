@@ -341,13 +341,13 @@ state 10
 
     COLON           reduce using rule 5 (name -> OPERATOR .)
     LPAREN          reduce using rule 5 (name -> OPERATOR .)
+    OPERATOR        reduce using rule 5 (name -> OPERATOR .)
     $end            reduce using rule 5 (name -> OPERATOR .)
     RPAREN          reduce using rule 5 (name -> OPERATOR .)
     RPAREN_MAPSTO   reduce using rule 5 (name -> OPERATOR .)
     COMMA           reduce using rule 5 (name -> OPERATOR .)
     RBRACKET        reduce using rule 5 (name -> OPERATOR .)
     RBRACE          reduce using rule 5 (name -> OPERATOR .)
-    OPERATOR        shift and go to state 10
     NAME            shift and go to state 11
     BAR             shift and go to state 15
     NUMBER          shift and go to state 16
@@ -355,9 +355,9 @@ state 10
     LBRACKET        shift and go to state 21
     LBRACE          shift and go to state 22
 
-  ! OPERATOR        [ reduce using rule 5 (name -> OPERATOR .) ]
   ! BAR             [ reduce using rule 5 (name -> OPERATOR .) ]
   ! LPAREN          [ shift and go to state 9 ]
+  ! OPERATOR        [ shift and go to state 10 ]
 
     expression                     shift and go to state 30
     name                           shift and go to state 31
@@ -669,6 +669,7 @@ state 23
     (29) lambda -> . NAME MAPSTO expression
     (30) lambda -> . LPAREN capture_list RPAREN_MAPSTO expression
 
+    OPERATOR        reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
     $end            reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
     RPAREN          reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
     RBRACKET        reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
@@ -676,7 +677,6 @@ state 23
     RBRACE          reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
     RPAREN_MAPSTO   reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .)
     LPAREN          shift and go to state 9
-    OPERATOR        shift and go to state 10
     NAME            shift and go to state 11
     BAR             shift and go to state 15
     NUMBER          shift and go to state 16
@@ -684,8 +684,8 @@ state 23
     LBRACKET        shift and go to state 21
     LBRACE          shift and go to state 22
 
-  ! OPERATOR        [ reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .) ]
   ! BAR             [ reduce using rule 37 (operator_invocation_postfix -> expression OPERATOR .) ]
+  ! OPERATOR        [ shift and go to state 10 ]
 
     expression                     shift and go to state 39
     name                           shift and go to state 31
@@ -867,6 +867,7 @@ state 30
     (37) operator_invocation_postfix -> expression . OPERATOR
     (36) operator_invocation_infix -> expression . OPERATOR expression
 
+    OPERATOR        reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
     $end            reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
     RPAREN          reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
     RBRACKET        reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
@@ -874,9 +875,8 @@ state 30
     RBRACE          reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
     RPAREN_MAPSTO   reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
     BAR             reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .)
-    OPERATOR        shift and go to state 23
 
-  ! OPERATOR        [ reduce using rule 38 (operator_invocation_prefix -> OPERATOR expression .) ]
+  ! OPERATOR        [ shift and go to state 23 ]
 
 
 state 31
@@ -1075,6 +1075,7 @@ state 39
     (37) operator_invocation_postfix -> expression . OPERATOR
     (36) operator_invocation_infix -> expression . OPERATOR expression
 
+    OPERATOR        reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
     $end            reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
     RPAREN          reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
     RBRACKET        reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
@@ -1082,9 +1083,8 @@ state 39
     RBRACE          reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
     RPAREN_MAPSTO   reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
     BAR             reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .)
-    OPERATOR        shift and go to state 23
 
-  ! OPERATOR        [ reduce using rule 36 (operator_invocation_infix -> expression OPERATOR expression .) ]
+  ! OPERATOR        [ shift and go to state 23 ]
 
 
 state 40

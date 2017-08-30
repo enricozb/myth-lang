@@ -41,8 +41,9 @@ names = DictStack(
 names.update({'reduce': reduce, 'partial': partial})
 import operator
 
-names['+'] = operator.add
-names['-'] = operator.sub
+
+names['+'] = lambda a, b=None: a + b if b else a
+names['-'] = lambda a, b=None: a - b if b else -a
 names['*'] = operator.mul
 names['/'] = operator.truediv
 names['//'] = operator.floordiv
