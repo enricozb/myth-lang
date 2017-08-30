@@ -16,8 +16,9 @@ def parse_args():
     parser.add_argument(
         '-v',
         '--verbose',
-        help='Show debugging output',
-        action='store_true'
+        type=int,
+        help='Verboseness level',
+        default=0
     )
     return parser.parse_args()
 
@@ -25,7 +26,7 @@ def main():
     args = parse_args()
     builtins.verbose = args.verbose
     if builtins.verbose:
-        print('Verbose mode enabled')
+        print(f'Verbose mode {builtins.verbose} enabled')
 
     if args.filename:
         with open(args.filename, 'r') as file:
@@ -49,7 +50,7 @@ def main():
         except EOFError:
             break
         except Exception as e:
-            if builtins.verbose:
+            if builtins.verbose > 1:
                 raise e
             print(e)
             print()

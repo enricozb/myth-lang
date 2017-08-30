@@ -8,7 +8,6 @@ tokens = (
 
 t_ignore = ' '
 
-t_NAME = r'(?!in)([a-zA-Z_]+)'
 t_COLON = r':'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -19,13 +18,24 @@ t_RBRACE = r'}'
 t_COMMA = r','
 t_BAR = r'\|'
 
+reserved = {
+    'in' : 'OPERATOR',
+    'or' : 'OPERATOR',
+    'not' : 'OPERATOR',
+}
+
+def t_NAME(t):
+    r'[a-zA-Z_]+'
+    t.type = reserved.get(t.value, 'NAME')
+    return t
+
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
 def t_STRING(t):
-    r"L?\'(\\.|[^\\'])*\'"
+    r'L?\"(.|[^\"])*\"'
     t.value = literal_eval(t.value)
     return t
 
@@ -38,7 +48,7 @@ def t_MAPSTO(t):
     return t
 
 def t_OPERATOR(t):
-    r'[\+\-\*\/\^=]+|in'
+    r'''[\+\-\*\/\^=\']+'''
     return t
 
 def t_newline(t):

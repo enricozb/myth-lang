@@ -1,4 +1,5 @@
 import builtins
+import utils
 
 from functools import reduce, partial
 from myth_lex import tokens
@@ -15,8 +16,6 @@ class DictStack:
         self.dicts = [names]
 
     def push(self, names):
-        if builtins.verbose:
-            print('pushing', names)
         self.dicts.append(names)
 
     def pop(self):
@@ -51,6 +50,9 @@ names['^'] = operator.pow
 names['='] = operator.eq
 
 names['in'] = lambda a, b: a in b
+names['or'] = lambda a, b: a or b
+names['and'] = lambda a, b: a and b
+names['not'] = operator.__not__
 
 def lambda_literal(capturelist, expression):
     def func(*args):
@@ -90,8 +92,8 @@ def p_statment(t):
     statement : assign
               | expression
     """
-    if builtins.verbose:
-        pprint(t[1])
+    if builtins.verbose > 0:
+        print('Verbose:', utils.prefix_format(t[1]))
     val = eval_bytecode(t[1])
     if val is not None:
         print(repr(val))
@@ -221,9 +223,29 @@ def p_capture_list(t):
 
 def p_operator_invocation(t):
     """
-    operator_invocation : expression OPERATOR expression
+    operator_invocation : operator_invocation_postfix
+                        | operator_invocation_prefix
+                        | operator_invocation_infix
+    """
+    t[0] = t[1]
+
+def p_operator_invocation_infix(t):
+    """
+    operator_invocation_infix : expression OPERATOR expression
     """
     t[0] = ('call', ('name', t[2]), [t[1], t[3]])
+
+def p_operator_invocation_postfix(t):
+    """
+    operator_invocation_postfix : expression OPERATOR
+    """
+    t[0] = ('call', ('name', t[2]), [t[1]])
+
+def p_operator_invocation_prefix(t):
+    """
+    operator_invocation_prefix : OPERATOR expression
+    """
+    t[0] = ('call', ('name', t[1]), [t[2]])
 
 
 def p_error(t):
