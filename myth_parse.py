@@ -41,9 +41,26 @@ names = DictStack(
 names.update({'reduce': reduce, 'partial': partial})
 import operator
 
+class BuiltinFunc:
+    def __init__(self, f, name, num_params):
+        self.f = f
+        self.name = name
+        self.min_params, self.max_params = num_params
 
-names['+'] = lambda a, b=None: a + b if b else a
-names['-'] = lambda a, b=None: a - b if b else -a
+    def __call__(self, *params):
+        if self.min_params <= len(params) <= self.max_params:
+            return self.f(*params)
+        raise TypeError(
+            f'{self.name} takes from {self.min_params} to {self.max_params} '
+            f'positional arguments but {len(params)} were given'
+        )
+
+    def __repr__(self):
+        return f'<built-in function {self.name}>'
+
+
+names['+'] = BuiltinFunc(lambda a, b=None: a + b if b else a, 'add', (1, 2))
+names['-'] = BuiltinFunc(lambda a, b=None: a - b if b else -a, 'sub', (1, 2))
 names['*'] = operator.mul
 names['/'] = operator.truediv
 names['//'] = operator.floordiv
